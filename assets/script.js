@@ -63,11 +63,12 @@ var config = {
 
 
           //format first train time and push back 1 year so it comes before current time
-          var trainFirstFormat = moment(trainFirst, "HH:mm").subtract(1, "years");
+          var trainFirstFormat = moment(trainFirst, "hh:mm").subtract(1, "years");
           console.log(trainFirstFormat);
 
           //current time
-          var currentTime = moment().format("hh:mm");                  
+          var currentTime = moment();    
+          console.log(currentTime);              
           //difference between times
           var diffTime = moment().diff(moment(trainFirstFormat), "minutes");
           //time apart
@@ -76,13 +77,14 @@ var config = {
           var minutesTillNext = trainFrequency - tApart;
          //next train
           var nextTrain = moment().add(minutesTillNext, "minutes");
+          var nextArrival = moment(nextTrain).format('hh:mm A');
          //create new row for table
           var newRow = $("<tr>").append(
               $("<td>").text(trainName),
               $("<td>").text(trainDestination),
-              $("<td>").text(trainFrequency),
-              $("<td>").text(nextTrain),
-              $("<td>").text(minutesTillNext)
+              $("<td>").text("Every " + trainFrequency + " minutes"),
+              $("<td>").text(nextArrival),
+              $("<td>").text(minutesTillNext + " minutes"),
           );
 
           //append row to table
